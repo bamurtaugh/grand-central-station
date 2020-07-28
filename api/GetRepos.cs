@@ -7,29 +7,26 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using grand.central.shared;
+using System.Collections.Generic;
 
 namespace grand.central
 {
-    public static class GetRepos
+  public static class GetRepos
+  {
+    [FunctionName("GetRepos")]
+    public static async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+        ILogger log)
     {
-        [FunctionName("GetRepos")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+      log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+      var repos = new List<Repo>();
+      repos.Add(new Repo() { Name = "Static Web Apps", Url = "https://github.com/Azure/static-web-apps", Notes = "Official repo for Static Web Apps" });
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+      string responseMessage = JsonConvert.SerializeObject(repos);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
-        }
+      return new OkObjectResult(responseMessage);
     }
+  }
 }
