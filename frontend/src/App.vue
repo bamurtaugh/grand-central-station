@@ -11,15 +11,16 @@
         <div class="column">
           <div class="select is-medium">
             <select name="repos" id="repos">
-              <option value="0">Static Web Apps</option>
-              <option value="1">Azure Functions</option>
+              <option v-for="repo in repos" :key="repo.Url" value="repo.Url"
+                >{{ repo.Name }}
+              </option>
             </select>
           </div>
         </div>
       </div>
     </div>
     <div class="section">
-      <vue-autosuggest
+      <!-- <vue-autosuggest
         :suggestions="[
           {
             data: [
@@ -33,6 +34,7 @@
           }
         ]"
         :input-props="{
+          class: 'input',
           id: 'autosuggest__input',
           placeholder: 'Do you feel lucky, punk?'
         }"
@@ -43,18 +45,24 @@
         <template slot-scope="{ suggestion }">
           <span class="my-suggestion-item">{{ suggestion.item }}</span>
         </template>
-      </vue-autosuggest>
+      </vue-autosuggest> -->
     </div>
   </div>
 </template>
 
 <script>
-import { VueAutosuggest } from "vue-autosuggest";
+import axios from "axios";
 
 export default {
   name: "App",
-  components: {
-    VueAutosuggest
+  data() {
+    return {
+      repos: []
+    };
+  },
+  mounted: async function() {
+    const response = await axios.get(`${process.env.VUE_APP_API_BASE}/repos`);
+    this.repos = response.data;
   }
 };
 </script>
