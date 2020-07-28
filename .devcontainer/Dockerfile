@@ -5,8 +5,15 @@
 
 # To fully customize the contents of this image, use the following Dockerfile instead:
 # https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/javascript-node-14/.devcontainer/Dockerfile
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14
+# FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14
+FROM mcr.microsoft.com/azure-functions/dotnet:3.0-dotnet3-core-tools
 
+RUN apt-get update \
+&& apt-get install curl \
+&& curl -sL https://deb.nodesource.com/setup_14.x | bash \
+&& apt-get install nodejs \
+&& node -v \
+&& npm -v
 # ** [Optional] Uncomment this section to install additional packages. **
 #
 # RUN apt-get update \
