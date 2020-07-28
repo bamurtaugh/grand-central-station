@@ -9,13 +9,14 @@
 FROM mcr.microsoft.com/azure-functions/dotnet:3.0-dotnet3-core-tools
 
 RUN apt-get update \
-&& apt-get install curl \
-&& curl -sL https://deb.nodesource.com/setup_14.x | bash \
-&& apt-get install nodejs \
-&& node -v \
-&& npm -v
+  && apt-get install curl \
+  && curl -sL https://deb.nodesource.com/setup_14.x | bash \
+  && apt-get install nodejs \
+  && node -v \
+  && npm -v \
 # ** [Optional] Uncomment this section to install additional packages. **
 #
+
 # RUN apt-get update \
 #     && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>

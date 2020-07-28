@@ -14,7 +14,9 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "octref.vetur",
-    "sdras.vue-vscode-snippets"
+    "sdras.vue-vscode-snippets",
+    "ms-dotnettools.csharp",
+    "ms-azuretools.vscode-azurefunctions"
   ]
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
