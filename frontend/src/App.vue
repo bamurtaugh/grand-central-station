@@ -10,9 +10,10 @@
         </div>
         <div class="column">
           <div class="select is-medium">
-            <select name="repos" id="repos">
+            <!-- <select name="repos" id="repos"> -->
+            <select v-model="selectedValue" name="repos" id="repos" @change="onChange($event)" >
               <option v-for="repo in repos" :key="repo.Url" value="repo.Url"
-                >{{ repo.Name }}
+                >{{ repo.Name }} 
               </option>
             </select>
           </div>
@@ -59,6 +60,13 @@ export default {
     return {
       repos: []
     };
+  },
+  methods: {
+        onChange(event) {
+            console.log(event.target.value);
+            //window.location.href = repo.Url;
+            window.location.href = 'https://www.google.com'; // need to update to above
+        }
   },
   mounted: async function() {
     const response = await axios.get(`${process.env.VUE_APP_API_BASE}/repos`);
