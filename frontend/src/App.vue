@@ -10,9 +10,9 @@
         </div>
         <div class="column">
           <div class="select is-medium">
-            <!-- <select name="repos" id="repos"> -->
+            <!-- <select name="repos" id="repos" value="https://www.google.com"> -->
             <select v-model="selectedValue" name="repos" id="repos" @change="onChange($event)" >
-              <option v-for="repo in repos" :key="repo.Url" value="repo.Url"
+              <option v-for="repo in repos" :key="repo.Url" v-bind:value="repo.Url"
                 >{{ repo.Name }} 
               </option>
             </select>
@@ -64,8 +64,8 @@ export default {
   methods: {
         onChange(event) {
             console.log(event.target.value);
-            //window.location.href = repo.Url;
-            window.location.href = 'https://www.google.com'; // need to update to above
+            window.location.href = event.target.value;
+            //window.location.href = 'https://www.google.com'; // Redirects properly
         }
   },
   mounted: async function() {
