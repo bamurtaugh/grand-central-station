@@ -21,32 +21,22 @@
       </div>
     </div>
     <div class="section">
-      <!-- <vue-autosuggest
-        :suggestions="[
-          {
-            data: [
-              'Frodo',
-              'Samwise',
-              'Gandalf',
-              'Galadriel',
-              'Faramir',
-              'Éowyn'
-            ]
-          }
-        ]"
-        :input-props="{
-          class: 'input',
-          id: 'autosuggest__input',
-          placeholder: 'Do you feel lucky, punk?'
-        }"
-        @input="onInputChange"
-        @selected="selectHandler"
-        @click="clickHandler"
-      >
-        <template slot-scope="{ suggestion }">
-          <span class="my-suggestion-item">{{ suggestion.item }}</span>
-        </template>
-      </vue-autosuggest> -->
+
+      <div id="app">
+        <h3 class="is-size-3">I want to add a repo</h3>
+        <div v-for="repo in repos" :key="repo.Url"> 
+          <input v-model="repo.Name">
+          <input v-model="repo.Url">
+          <input v-model="repo.Notes">
+        </div>
+        
+        <button @click="addUser">
+          Add repo!
+        </button>
+        
+        <pre>{{ $data }}</pre>
+      </div>
+
     </div>
   </div>
 </template>
@@ -62,11 +52,12 @@ export default {
     };
   },
   methods: {
-        onChange(event) {
-            console.log(event.target.value);
-            window.location.href = event.target.value;
-            //window.location.href = 'https://www.google.com'; // Redirects properly
-        }
+    addUser: function () {
+      this.repos.push({ Name: '',Url:'',Notes:'' });
+    },
+    onChange(event) {
+      console.log(event.target.value);
+        window.location.href = event.target.value;}
   },
   mounted: async function() {
     const response = await axios.get(`${process.env.VUE_APP_API_BASE}/repos`);
